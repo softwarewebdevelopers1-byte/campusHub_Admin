@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="icon" href="./images/campusHub.png" />
+    <link rel="stylesheet" href="./css/index.css" />
+    <title>CampusHub Admin Panel</title>
+  </head>
+  <body>
+    <nav>
+      <div class="sideBar">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header">
+          <div class="logo-area">
+            <div class="logo-icon">CH</div>
+            <div class="logo-text">
+              CampusHub
+              <span>Admin Panel</span>
+            </div>
+          </div>
+
+          <!-- Admin Profile in Sidebar -->
+          <div class="sidebar-profile">
+            <div class="profile-avatar">A</div>
+            <div class="profile-info">
+              <h4>Admin User</h4>
+              <p><i class="fas fa-circle"></i> Online</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigation Section Label -->
+        <div class="nav-section">MAIN NAVIGATION</div>
+
+        <!-- Dynamic Links will be inserted here -->
+        <ul id="links"></ul>
+
+        <!-- Logout Section -->
+        <div class="logout-section">
+          <a href="#" class="logout-btn" data-tooltip="Logout from this device">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+          </a>
+          <a
+            href="#"
+            class="logout-all-btn"
+            data-tooltip="Logout from all devices"
+          >
+            <i class="fas fa-sign-out-alt"></i>
+            <i class="fas fa-devices"></i>
+            <span>All Devices</span>
+          </a>
+        </div>
+      </div>
+
+      <main class="mainContent">
+        <!-- Topbar -->
+        <div class="topbar">
+          <div class="topbar-left">
+            <button class="menu-toggle" id="menuToggle" style="display: none">
+              <i class="fas fa-bars"></i>
+            </button>
+            <h2>Dashboard</h2>
+          </div>
+
+          <div class="topbar-right">
+            <!-- <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" placeholder="Search..." />
+            </div> -->
+
+            <div class="icon">
+              <i class="fa-regular fa-bell"></i>
+            </div>
+
+            <div class="profile">
+              <i class="fas fa-user-tie"></i>
+              <span id="users">Admin</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Iframe -->
+        <iframe
+          src="./html/landingPage.html"
+          frameborder="0"
+          id="IframeLoader"
+        ></iframe>
+      </main>
+    </nav>
+
+    <script>
+      // Simple mobile menu toggle (you can move this to your JS file)
+      document.addEventListener("DOMContentLoaded", function () {
+        const menuToggle = document.getElementById("menuToggle");
+        const sidebar = document.querySelector(".sideBar");
+
+        if (menuToggle) {
+          menuToggle.style.display =
+            window.innerWidth <= 479 ? "block" : "none";
+
+          menuToggle.addEventListener("click", function () {
+            sidebar.classList.toggle("open");
+          });
+
+          window.addEventListener("resize", function () {
+            if (window.innerWidth <= 479) {
+              menuToggle.style.display = "block";
+            } else {
+              menuToggle.style.display = "none";
+              sidebar.classList.remove("open");
+            }
+          });
+        }
+      });
+    </script>
+    <script type="module" src="./js/index.js"></script>
+  </body>
+</html>

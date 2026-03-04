@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CampusHub • Error</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #1e293b;
+  }
+
+  .error-card {
+    background: white;
+    border-radius: 20px;
+    max-width: 450px;
+    width: 90%;
+    text-align: center;
+    padding: 40px 30px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .error-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, #667eea, #764ba2, #10b981, #f59e0b);
+    animation: rotate 6s linear infinite;
+    z-index: 0;
+  }
+
+  @keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .error-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .error-icon {
+    font-size: 80px;
+    margin-bottom: 20px;
+    color: #2563eb;
+  }
+
+  .error-code {
+    font-size: 80px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #1e293b;
+  }
+
+  .error-title {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 15px;
+  }
+
+  .error-message {
+    font-size: 16px;
+    color: #64748b;
+    margin-bottom: 30px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 25px;
+    border-radius: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(37,99,235,0.3);
+  }
+
+  .btn-secondary {
+    background: #f1f5f9;
+    color: #475569;
+  }
+
+  .btn-secondary:hover {
+    background: #e2e8f0;
+  }
+
+  @media (max-width: 500px){
+    .error-code { font-size: 60px; }
+    .error-title { font-size: 22px; }
+    .error-message { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="error-card">
+  <div class="error-content">
+    <div class="error-icon"><i class="fas fa-exclamation-triangle"></i></div>
+    <div class="error-code" id="errorCode">404</div>
+    <div class="error-title" id="errorTitle">Page Not Found</div>
+    <div class="error-message" id="errorMessage">
+      The page you're looking for doesn't exist or has been moved. Check the URL or go back home.
+    </div>
+    <div class="error-actions">
+      <a href="./index.html" class="btn btn-primary"><i class="fas fa-home"></i> Home</a>
+      <a href="javascript:history.back()" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Go Back</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Optional: Dynamically change error type if you pass ?type=403 or ?type=500 in URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const type = urlParams.get('type') || '404';
+
+  const errors = {
+    '404': { code: '404', title: 'Page Not Found', message: "The page you're looking for doesn't exist or has been moved." },
+    '403': { code: '403', title: 'Access Forbidden', message: "You don't have permission to access this resource." },
+    '500': { code: '500', title: 'Server Error', message: "Something went wrong on our server. Please try again later." },
+    '503': { code: '503', title: 'Under Maintenance', message: "We're performing scheduled maintenance. We'll be back soon!" },
+    '429': { code: '429', title: 'Too Many Requests', message: "You've made too many requests. Please wait and try again." }
+  };
+
+  if(errors[type]){
+    document.getElementById('errorCode').innerText = errors[type].code;
+    document.getElementById('errorTitle').innerText = errors[type].title;
+    document.getElementById('errorMessage').innerText = errors[type].message;
+  }
+</script>
+
+</body>
+</html>

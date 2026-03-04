@@ -1,0 +1,829 @@
+/* Global reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Theme variables */
+:root {
+  --bg-color: #0f172a;
+  --primary: rgba(200, 200, 200, 0.9);
+  --accent: #fff;
+  --hover-bg: rgba(255, 255, 255, 0.1);
+  --active-bg: #2563eb;
+  --transition-speed: 0.3s;
+  --sidebar-width: 280px;
+  --border-radius: 10px;
+  --font-primary:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+    sans-serif;
+}
+
+/* Sidebar container */
+.sideBar {
+  width: var(--sidebar-width);
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: linear-gradient(180deg, #0f172a 0%, #1a2639 100%);
+  color: var(--accent);
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
+  font-family: var(--font-primary);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 1000;
+}
+
+/* Sidebar Header */
+.sidebar-header {
+  padding: 25px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 10px;
+}
+
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  width: 45px;
+  height: 45px;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 700;
+  color: white;
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+}
+
+.logo-text {
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+  letter-spacing: 0.5px;
+}
+
+.logo-text span {
+  font-size: 12px;
+  color: #94a3b8;
+  display: block;
+  font-weight: normal;
+  margin-top: 2px;
+}
+
+/* Admin Profile in Sidebar */
+.sidebar-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  margin-top: 15px;
+}
+
+.profile-avatar {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 600;
+  color: white;
+}
+
+.profile-info h4 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: white;
+}
+
+.profile-info p {
+  font-size: 12px;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.profile-info p i {
+  font-size: 8px;
+  color: #22c55e;
+}
+
+/* Sidebar navigation list */
+.sideBar ul {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  list-style: none;
+  padding: 10px 16px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) var(--bg-color);
+}
+
+/* Custom scrollbar for WebKit browsers */
+.sideBar ul::-webkit-scrollbar {
+  width: 5px;
+}
+
+.sideBar ul::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.sideBar ul::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+}
+
+.sideBar ul::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Sidebar items */
+.sideBar ul li {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.3px;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+  color: rgba(255, 255, 255, 0.7);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* Add icons to sidebar items (will be populated by JS) */
+.sideBar ul li i {
+  width: 22px;
+  font-size: 18px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.6);
+  transition: all var(--transition-speed) ease;
+}
+
+/* Hover effect with subtle glow */
+.sideBar ul li:hover {
+  color: var(--accent);
+  background-color: var(--hover-bg);
+  transform: translateX(5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.sideBar ul li:hover i {
+  color: var(--accent);
+}
+
+/* Focus state for accessibility */
+.sideBar ul li:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  transform: translateX(4px);
+}
+
+/* Active link background with improved contrast */
+.sideBar ul li.activeLink {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+  border-left: 3px solid white;
+}
+
+.sideBar ul li.activeLink i {
+  color: white;
+}
+
+/* Base underline (hidden by default) */
+.links::after {
+  content: "";
+  position: absolute;
+  bottom: 8px;
+  left: 16px;
+  height: 2px;
+  width: 0;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--primary) 100%);
+  transform-origin: left;
+  transition: width var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 2px;
+  opacity: 0.8;
+}
+
+/* Active underline (expands smoothly) */
+.active::after {
+  width: calc(100% - 32px);
+}
+
+/* Navigation sections */
+.nav-section {
+  padding: 15px 16px 5px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #64748b;
+}
+
+/* Logout Section */
+.logout-section {
+  padding: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: auto;
+}
+
+.logout-btn,
+.logout-all-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: var(--border-radius);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-speed) ease;
+  text-decoration: none;
+  margin-bottom: 8px;
+  width: 100%;
+  border: none;
+}
+
+.logout-btn {
+  background: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+  border: 1px solid transparent;
+}
+
+.logout-btn:hover {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.3);
+  transform: translateX(5px);
+}
+
+.logout-btn i {
+  font-size: 18px;
+  width: 22px;
+  text-align: center;
+}
+
+.logout-all-btn {
+  background: rgba(255, 255, 255, 0.03);
+  color: #94a3b8;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.logout-all-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #e2e8f0;
+  transform: translateX(5px);
+}
+
+.logout-all-btn i {
+  font-size: 16px;
+  width: 22px;
+  text-align: center;
+}
+
+.logout-all-btn .fa-devices {
+  font-size: 14px;
+  margin-left: -3px;
+}
+
+/* Tooltip */
+[data-tooltip] {
+  position: relative;
+}
+
+[data-tooltip]:before {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 10px;
+  padding: 6px 12px;
+  background: #1e293b;
+  color: white;
+  font-size: 12px;
+  border-radius: 6px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+}
+
+[data-tooltip]:hover:before {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Main content with responsive iframe */
+.mainContent {
+  margin-left: var(--sidebar-width);
+  height: 100vh;
+  overflow: hidden;
+  background: #f5f5f5;
+}
+
+.mainContent iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+  background: white;
+}
+
+/* MAIN CONTENT LAYOUT */
+.mainContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #f4f6f9;
+}
+
+/* TOPBAR */
+.topbar {
+  height: 70px;
+  background: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.topbar-left h2 {
+  font-size: 20px;
+  color: #1f2937;
+}
+
+/* RIGHT SECTION */
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* SEARCH */
+.search-box {
+  display: flex;
+  align-items: center;
+  background: #f3f4f6;
+  padding: 6px 12px;
+  border-radius: 8px;
+  gap: 8px;
+}
+
+.search-box input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 14px;
+}
+
+/* ICON */
+.icon {
+  font-size: 18px;
+  cursor: pointer;
+  color: #374151;
+  transition: 0.3s;
+}
+
+.icon:hover {
+  color: #2563eb;
+}
+
+/* PROFILE */
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.profile img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.profile span {
+  font-size: 14px;
+  color: #374151;
+}
+
+/* IFRAME */
+#IframeLoader {
+  flex: 1;
+  width: 100%;
+  border: none;
+}
+
+/* Smooth scrolling for the sidebar */
+.sideBar ul {
+  scroll-behavior: smooth;
+}
+
+/* ========================================= */
+/* RESPONSIVE DESIGN - Desktop First Approach */
+/* ========================================= */
+
+/* Large Desktop (1200px and above) */
+@media (min-width: 1200px) {
+  :root {
+    --sidebar-width: 300px;
+  }
+
+  .sidebar-header {
+    padding: 30px 25px;
+  }
+
+  .logo-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+  }
+
+  .logo-text {
+    font-size: 20px;
+  }
+
+  .sideBar ul li {
+    padding: 14px 20px;
+    font-size: 15px;
+  }
+}
+
+/* Desktop (992px to 1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+  :root {
+    --sidebar-width: 260px;
+  }
+}
+
+/* Tablet Landscape (768px to 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+  :root {
+    --sidebar-width: 240px;
+  }
+
+  .sidebar-profile .profile-info h4 {
+    font-size: 14px;
+  }
+
+  .sidebar-profile .profile-info p {
+    font-size: 11px;
+  }
+
+  .sideBar ul li {
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+
+  .topbar {
+    padding: 0 20px;
+  }
+
+  .search-box {
+    width: 200px;
+  }
+
+  .search-box input {
+    width: 100%;
+  }
+}
+
+/* Tablet Portrait (576px to 767px) - Collapsed Sidebar */
+@media (min-width: 576px) and (max-width: 767px) {
+  :root {
+    --sidebar-width: 80px;
+  }
+
+  .sidebar-header {
+    padding: 20px 10px;
+  }
+
+  .logo-area {
+    justify-content: center;
+  }
+
+  .logo-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+
+  .logo-text,
+  .sidebar-profile .profile-info,
+  .sideBar ul li span,
+  .logout-btn span,
+  .logout-all-btn span,
+  .nav-section {
+    display: none;
+  }
+
+  .sidebar-profile {
+    justify-content: center;
+    padding: 10px;
+  }
+
+  .profile-avatar {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    margin: 0 auto;
+  }
+
+  .sideBar ul li {
+    justify-content: center;
+    padding: 12px 10px;
+  }
+
+  .sideBar ul li i {
+    width: auto;
+    font-size: 20px;
+    margin: 0;
+  }
+
+  .logout-btn,
+  .logout-all-btn {
+    justify-content: center;
+    padding: 12px 10px;
+  }
+
+  .logout-btn i,
+  .logout-all-btn i {
+    width: auto;
+    font-size: 18px;
+    margin: 0;
+  }
+
+  .logout-all-btn .fa-devices {
+    margin-left: 0;
+  }
+
+  .mainContent {
+    margin-left: 80px;
+  }
+
+  /* Show tooltips on hover for collapsed sidebar */
+  .sideBar ul li[data-tooltip]:before,
+  .logout-btn[data-tooltip]:before,
+  .logout-all-btn[data-tooltip]:before {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 10px;
+    padding: 6px 12px;
+    background: #1e293b;
+    color: white;
+    font-size: 12px;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    display: block;
+  }
+
+  .sideBar ul li:hover[data-tooltip]:before,
+  .logout-btn:hover[data-tooltip]:before,
+  .logout-all-btn:hover[data-tooltip]:before {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .topbar-left h2 {
+    font-size: 18px;
+  }
+
+  .search-box {
+    width: 160px;
+  }
+}
+
+/* Height-based media queries for better spacing on short screens */
+@media (max-height: 600px) {
+  .sidebar-header {
+    padding: 15px 20px;
+  }
+
+  .sidebar-profile {
+    padding: 10px;
+  }
+
+  .profile-avatar {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+
+  .sideBar ul {
+    padding: 5px 16px;
+  }
+
+  .sideBar ul li {
+    padding: 8px 16px;
+  }
+
+  .logout-section {
+    padding: 10px 16px;
+  }
+
+  .logout-btn,
+  .logout-all-btn {
+    padding: 8px 16px;
+  }
+}
+
+/* Mobile Landscape (480px to 575px) */
+@media (min-width: 480px) and (max-width: 575px) {
+  :root {
+    --sidebar-width: 70px;
+  }
+
+  .sidebar-header {
+    padding: 15px 8px;
+  }
+
+  .logo-icon {
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
+  }
+
+  .logo-text,
+  .sidebar-profile,
+  .sideBar ul li span,
+  .logout-btn span,
+  .logout-all-btn span,
+  .nav-section {
+    display: none;
+  }
+
+  .sideBar ul li {
+    justify-content: center;
+    padding: 10px 8px;
+  }
+
+  .sideBar ul li i {
+    width: auto;
+    font-size: 18px;
+    margin: 0;
+  }
+
+  .logout-section {
+    padding: 10px 8px;
+  }
+
+  .logout-btn,
+  .logout-all-btn {
+    justify-content: center;
+    padding: 10px 8px;
+  }
+
+  .logout-btn i,
+  .logout-all-btn i {
+    width: auto;
+    font-size: 16px;
+    margin: 0;
+  }
+
+  .mainContent {
+    margin-left: 70px;
+  }
+
+  .topbar {
+    padding: 0 15px;
+  }
+
+  .topbar-left h2 {
+    font-size: 16px;
+  }
+
+  .search-box {
+    display: none;
+  }
+
+  .profile span {
+    display: none;
+  }
+
+  /* Show tooltips */
+  .sideBar ul li[data-tooltip]:before,
+  .logout-btn[data-tooltip]:before,
+  .logout-all-btn[data-tooltip]:before {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 8px;
+    padding: 4px 8px;
+    font-size: 11px;
+    opacity: 0;
+    visibility: hidden;
+    display: block;
+  }
+
+  .sideBar ul li:hover[data-tooltip]:before,
+  .logout-btn:hover[data-tooltip]:before,
+  .logout-all-btn:hover[data-tooltip]:before {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+/* Mobile Portrait (below 480px) */
+@media (max-width: 479px) {
+  :root {
+    --sidebar-width: 0px;
+  }
+
+  .sideBar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .sideBar.open {
+    transform: translateX(0);
+    width: 250px;
+  }
+
+  .mainContent {
+    margin-left: 0;
+  }
+
+  .topbar {
+    padding: 0 15px;
+  }
+
+  .topbar-left h2 {
+    font-size: 16px;
+  }
+
+  .search-box {
+    display: none;
+  }
+
+  .profile span {
+    display: none;
+  }
+
+  .logout-buttons {
+    display: none;
+  }
+
+  /* Mobile menu toggle button */
+  .menu-toggle {
+    display: block;
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #1f2937;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+}
+
+/* Print styles */
+@media print {
+  .sideBar {
+    display: none;
+  }
+
+  .mainContent {
+    margin-left: 0;
+  }
+
+  .topbar {
+    display: none;
+  }
+}

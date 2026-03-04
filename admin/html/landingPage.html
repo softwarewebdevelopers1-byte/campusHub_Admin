@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CampusHub Admin</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../css/landingPage.css" />
+  </head>
+  <body>
+    <!-- Sidebar already exists -->
+    <div class="layout">
+      <!-- Main Content -->
+      <main class="main-content">
+        <header class="topbar">
+          <div>
+            <h1>Welcome Back, Admin 👋</h1>
+            <p>Manage your campus system efficiently.</p>
+          </div>
+          <button class="primary-btn">Create Announcement</button>
+        </header>
+        <button class="refresh">
+          <i class="fas fa-sync-alt" id="refresh-icon"></i> Refresh
+        </button>
+        <!-- Stats Section -->
+        <section class="stats">
+          <div class="card">
+            <h3>Total Students</h3>
+            <h2 id="userCount">0</h2>
+            <span>+12% this semester</span>
+          </div>
+
+          <div class="card">
+            <h3>Total Lecturers</h3>
+            <h2>74</h2>
+            <span>+3 new hires</span>
+          </div>
+
+          <div class="card">
+            <h3>Active Courses</h3>
+            <h2>56</h2>
+            <span>Updated this week</span>
+          </div>
+
+          <div class="card">
+            <h3>Pending Approvals</h3>
+            <h2>18</h2>
+            <span>Requires attention</span>
+          </div>
+        </section>
+
+        <!-- Activity Section -->
+        <section class="activity">
+          <h2>Recent Activity</h2>
+
+          <div class="activity-item">
+            <p>
+              <strong>John Mwangi</strong> submitted assignment for Web Dev.
+            </p>
+            <span>2 mins ago</span>
+          </div>
+
+          <div class="activity-item">
+            <p><strong>Finance Dept</strong> uploaded fee structure.</p>
+            <span>1 hour ago</span>
+          </div>
+
+          <div class="activity-item">
+            <p>
+              <strong>ICT Dept</strong> created new course: AI Fundamentals.
+            </p>
+            <span>Yesterday</span>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script type="module" src="../js/landingPage.js"></script>
+  </body>
+</html>
