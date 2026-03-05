@@ -2,6 +2,7 @@ let sendBtn = document.getElementById("sendBtn");
 let MainErrorCont = document.getElementById("error");
 let EmailInput = document.getElementById("userEmail");
 let PasswordInput = document.getElementById("userPassword");
+let RoleInput = document.getElementById("userRole");
 function CreateError() {
   let ErrorCont = document.createElement("div");
   ErrorCont.classList.add("error-message");
@@ -22,6 +23,7 @@ sendBtn.addEventListener("click", (e) => {
 
   let userEmail = EmailInput.value.trim();
   let password = PasswordInput.value.trim();
+  let role = RoleInput ? RoleInput.value : 'admin';
 
   class User {
     constructor() {
@@ -41,11 +43,11 @@ sendBtn.addEventListener("click", (e) => {
       sendBtn.textContent = "Logging in..."; // Optional: Change button text to indicate loading
       (async () => {
         try {
-          let res = await fetch("http://localhost:8000/auth/verify/admin", {
+          let res = await fetch("http://localhost:8000/auth/verify", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            credentials: "include", // This ensures cookies are sent AND received
-            body: JSON.stringify({ email: email, password: password }),
+            credentials: "include",
+            body: JSON.stringify({ email: email, password: password, role: role }),
           });
 
           let result = await res.json();
@@ -80,6 +82,8 @@ sendBtn.addEventListener("click", (e) => {
   newUser.sendData;
 });
 window.addEventListener("DOMContentLoaded", async () => {
+  // Check if an admin is already logged in (keeps existing behavior).
+  // If you want role-aware check, change this endpoint to accept a role param.
   let response = await fetch("http://localhost:8000/auth/check/admin/logged", {
     method: "GET",
     credentials: "include",
