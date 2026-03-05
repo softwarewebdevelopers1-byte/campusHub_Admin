@@ -5,9 +5,12 @@ let all_links = [
     loadTo: "./html/landingPage.html",
   },
   {
-    link: "Manage Users",
+    link: "Manage Students",
     class: "links",
     loadTo: "./html/manageUsers.html",
+  }, {
+    link: "Manage Lecturers",
+    class: "links"
   },
   {
     link: "Send Messages",
