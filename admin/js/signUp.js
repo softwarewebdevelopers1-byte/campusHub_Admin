@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
-                body: JSON.stringify({ name, email, password })
+                body: JSON.stringify({ fullName: name, email, password })
             });
 
             if (!res.ok) {
