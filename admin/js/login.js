@@ -62,7 +62,7 @@ if (formElement) {
         if (res.ok) {
           localStorage.setItem("AZX_users_Token", JSON.stringify(result.user || {}));
           setTimeout(() => {
-            window.location.href = "../index.html";
+            window.location.href = "../admin.html";
           }, 800);
         } else {
           CreateError();
