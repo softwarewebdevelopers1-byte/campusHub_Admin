@@ -138,20 +138,6 @@
       ></iframe>
     </div>
 
-    <script>
-      // Sidebar link -> iframe navigation
-      const links = document.querySelectorAll(".sidebar a");
-      const frame = document.getElementById("contentFrame");
-      links.forEach((link) => {
-        link.addEventListener("click", (e) => {
-          e.preventDefault();
-          const src = link.dataset.src || link.getAttribute("href");
-          if (!src) return;
-          frame.src = src;
-          links.forEach((l) => l.classList.remove("active"));
-          link.classList.add("active");
-        });
-      });
-    </script>
+    <script type="module" src="./lecturer.js/lecturerPage.js"></script>
   </body>
 </html>
