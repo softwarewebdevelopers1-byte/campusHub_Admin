@@ -10,7 +10,8 @@ let all_links = [
     loadTo: "./html/manageUsers.html",
   }, {
     link: "Manage Lecturers",
-    class: "links"
+    class: "links",
+    loadTo: "./html/manageLecturers.html",
   },
   {
     link: "Send Messages",
