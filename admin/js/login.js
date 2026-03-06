@@ -54,16 +54,15 @@ if (formElement) {
         try {
           result = await res.json();
           console.log(result);
-          
+
         } catch (err) {
           // ignore parse errors
         }
 
         if (res.ok) {
           localStorage.setItem("AZX_users_Token", JSON.stringify(result.user || {}));
-          setTimeout(() => {
-            window.location.href = "../admin.html";
-          }, 800);
+          if (role === "admin") window.location.href = "../index.html";
+          else if (role === "lecturer") window.location.href = "../lecturer.html";
         } else {
           CreateError();
           EnableBtn();
@@ -79,7 +78,7 @@ if (formElement) {
   // fallback: attach click handler to button if form not found
   sendBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    if (formElement) formElement.dispatchEvent(new Event('submit', {cancelable: true, bubbles: true}));
+    if (formElement) formElement.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
   });
 }
 // window.addEventListener("DOMContentLoaded", async () => {

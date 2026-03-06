@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="./images/campusHub.png">
+    <title>CampusHub Lecturer Dashboard</title>
+
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #f4f6f9;
+      }
+
+      /* Top Navbar */
+
+      .navbar {
+        background: #1e3a8a;
+        color: white;
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .navbar h2 {
+        margin: 0;
+      }
+
+      .profile {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .profile img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+      }
+
+      /* Sidebar */
+
+      .container {
+        display: flex;
+      }
+
+      .sidebar {
+        width: 220px;
+        background: #111827;
+        color: white;
+        height: 100vh;
+        padding-top: 20px;
+      }
+
+      .sidebar a {
+        display: block;
+        color: white;
+        padding: 12px 20px;
+        text-decoration: none;
+      }
+
+      .sidebar a:hover {
+        background: #374151;
+      }
+
+      /* Main */
+
+      .main {
+        flex: 1;
+        padding: 30px;
+      }
+
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+      }
+
+      .card {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Table */
+
+      table {
+        width: 100%;
+        margin-top: 30px;
+        border-collapse: collapse;
+        background: white;
+      }
+
+      th,
+      td {
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+        text-align: left;
+      }
+
+      th {
+        background: #e5e7eb;
+      }
+
+      button {
+        padding: 8px 12px;
+        border: none;
+        background: #2563eb;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: #1d4ed8;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="navbar">
+      <h2>CampusHub - Lecturer</h2>
+
+      <div class="profile">
+        <img src="https://i.pravatar.cc/40" alt="profile" />
+        <span>Dr. Lecturer</span>
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- Sidebar -->
+
+      <div class="sidebar">
+        <a href="#">Dashboard</a>
+        <a href="#">Upload Notes</a>
+        <a href="#">My Courses</a>
+        <a href="#">Students</a>
+        <a href="#">Assignments</a>
+        <a href="#">Messages</a>
+        <a href="#">Logout</a>
+      </div>
+
+      <!-- Main -->
+
+      <div class="main">
+        <h2>Dashboard</h2>
+
+        <div class="cards">
+          <div class="card">
+            <h3>Total Courses</h3>
+            <p>4</p>
+          </div>
+
+          <div class="card">
+            <h3>Total Students</h3>
+            <p>230</p>
+          </div>
+
+          <div class="card">
+            <h3>Assignments</h3>
+            <p>12</p>
+          </div>
+
+          <div class="card">
+            <h3>Notifications</h3>
+            <p>5</p>
+          </div>
+        </div>
+
+        <!-- Courses Table -->
+
+        <h2>My Courses</h2>
+
+        <table>
+          <tr>
+            <th>Course</th>
+            <th>Code</th>
+            <th>Students</th>
+            <th>Action</th>
+          </tr>
+
+          <tr>
+            <td>Data Structures</td>
+            <td>CSC204</td>
+            <td>80</td>
+            <td><button>Upload Notes</button></td>
+          </tr>
+
+          <tr>
+            <td>Web Development</td>
+            <td>CSC301</td>
+            <td>65</td>
+            <td><button>Upload Notes</button></td>
+          </tr>
+
+          <tr>
+            <td>Database Systems</td>
+            <td>CSC210</td>
+            <td>85</td>
+            <td><button>Upload Notes</button></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
