@@ -61,7 +61,7 @@ if (formElement) {
 
         if (res.ok) {
           localStorage.setItem("AZX_users_Token", JSON.stringify(result.user || {}));
-          if (role === "admin") window.location.href = "../index.html";
+          if (role === "admin") window.location.href = "../admin.html";
           else if (role === "lecturer") window.location.href = "../lecturer.html";
         } else {
           CreateError();
