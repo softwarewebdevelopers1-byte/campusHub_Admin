@@ -6,10 +6,9 @@ document.addEventListener("DOMContentLoaded", async () => {
             method: "GET",
             credentials: "include",
         });
+console.log(await res.json());
 
-        if (res.status !== 200) {
-            console.log(await res.json());
-        } else {
+        if (!res.ok) {
             console.log(await res.json());
         }
     } catch (err) {
