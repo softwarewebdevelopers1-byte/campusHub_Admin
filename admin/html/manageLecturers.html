@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+		/>
+		<title>CampusHub - Lecturers</title>
+
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+				font-family: "Inter", "Segoe UI", sans-serif;
+			}
+
+			body {
+				background: linear-gradient(135deg, #eef2f7, #f8fafc);
+				padding: 40px;
+			}
+
+			/* HEADER */
+			.header {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-bottom: 30px;
+			}
+
+			.header-text h1 {
+				font-size: 28px;
+				color: #111827;
+				font-weight: 700;
+			}
+
+			.header-text p {
+				color: #6b7280;
+				margin-top: 6px;
+				font-size: 14px;
+			}
+
+			.refresh {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				padding: 10px 18px;
+				border-radius: 10px;
+				border: none;
+				cursor: pointer;
+				background: linear-gradient(135deg, #111827, #1f2937);
+				color: white;
+				font-weight: 500;
+				transition: 0.2s ease;
+			}
+
+			.refresh:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+			}
+
+			.spin {
+				animation: spin 1s linear infinite;
+			}
+
+			/* CARD CONTAINER */
+			.users-container {
+				background: rgba(255, 255, 255, 0.9);
+				backdrop-filter: blur(12px);
+				padding: 25px;
+				border-radius: 18px;
+				box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+				overflow-x: auto;
+			}
+
+			table {
+				width: 100%;
+				border-collapse: collapse;
+			}
+
+			thead {
+				background: #f3f4f6;
+			}
+
+			th {
+				text-align: left;
+				padding: 16px;
+				font-size: 13px;
+				letter-spacing: 0.5px;
+				text-transform: uppercase;
+				color: #6b7280;
+				font-weight: 600;
+			}
+
+			td {
+				padding: 18px 16px;
+				font-size: 14px;
+				color: #374151;
+				border-bottom: 1px solid #f1f1f1;
+			}
+
+			tbody tr {
+				transition: 0.2s ease;
+			}
+
+			tbody tr:hover {
+				background: #f9fafb;
+			}
+
+			/* USER INFO */
+			.user-info {
+				display: flex;
+				align-items: center;
+				gap: 12px;
+			}
+
+			.user-info img {
+				width: 42px;
+				height: 42px;
+				border-radius: 50%;
+				object-fit: cover;
+				border: 2px solid #e5e7eb;
+			}
+
+			/* STATUS BADGES */
+			.status {
+				padding: 6px 14px;
+				border-radius: 30px;
+				font-size: 12px;
+				font-weight: 600;
+				display: inline-block;
+			}
+
+			.active {
+				background: #dcfce7;
+				color: #166534;
+			}
+
+			.inactive {
+				background: #fee2e2;
+				color: #991b1b;
+			}
+
+			/* MODAL */
+			.users {
+				position: fixed;
+				inset: 0;
+				background: rgba(0, 0, 0, 0.4);
+				display: none;
+				justify-content: center;
+				align-items: center;
+			}
+			.users-active {
+				display: flex;
+			}
+
+			#user-info {
+				display: flex;
+				flex-direction: column;
+				gap: 10px;
+				justify-content: center;
+				background: white;
+				padding: 30px;
+				border-radius: 16px;
+				width: 350px;
+				text-align: center;
+				box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+				animation: pop 0.3s ease;
+			}
+
+			#user-info p {
+				font-size: 16px;
+				margin-bottom: 20px;
+				font-weight: 600;
+			}
+
+			#user-info button {
+				padding: 10px 18px;
+				border-radius: 8px;
+				border: none;
+				margin: 0 5px;
+				cursor: pointer;
+				font-weight: 500;
+				transition: 0.2s ease;
+			}
+
+			#user-info button:first-of-type {
+				background: #16a34a;
+				color: white;
+			}
+
+			#user-info button:last-of-type {
+				background: #e5e7eb;
+			}
+
+			#user-info button:hover {
+				transform: translateY(-2px);
+			}
+			.cursor {
+				cursor: pointer;
+			}
+			#notification-container {
+				position: fixed;
+				top: 20px;
+				right: 20px;
+				z-index: 9999;
+				display: flex;
+				flex-direction: column;
+				gap: 10px;
+			}
+
+			.notification {
+				min-width: 280px;
+				padding: 14px 18px;
+				border-radius: 10px;
+				color: white;
+				font-size: 14px;
+				font-weight: 500;
+				box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+				animation:
+					slideIn 0.3s ease,
+					fadeOut 0.5s ease 3.5s forwards;
+			}
+
+			.notification.success {
+				background: linear-gradient(135deg, #16a34a, #22c55e);
+			}
+
+			.notification.error {
+				background: linear-gradient(135deg, #dc2626, #ef4444);
+			}
+			.recovery-message {
+				position: fixed;
+				top: 20px;
+				right: 20px;
+				padding: 14px 20px;
+				border-radius: 8px;
+				color: white;
+				font-weight: 500;
+				z-index: 9999;
+				animation: fadeIn 0.3s ease-in-out;
+			}
+
+			.success-msg {
+				background-color: #28a745;
+			}
+
+			.error-msg {
+				background-color: #dc3545;
+			}
+			.deleted-user {
+				background-color: #fdecea;
+			}
+
+			@keyframes fadeIn {
+				from {
+					opacity: 0;
+					transform: translateY(-10px);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+
+			@keyframes slideIn {
+				from {
+					opacity: 0;
+					transform: translateX(50px);
+				}
+				to {
+					opacity: 1;
+					transform: translateX(0);
+				}
+			}
+
+			@keyframes fadeOut {
+				to {
+					opacity: 0;
+					transform: translateX(50px);
+				}
+			}
+
+			@keyframes spin {
+				from {
+					transform: rotate(0deg);
+				}
+				to {
+					transform: rotate(360deg);
+				}
+			}
+
+			@keyframes pop {
+				from {
+					transform: scale(0.9);
+					opacity: 0;
+				}
+				to {
+					transform: scale(1);
+					opacity: 1;
+				}
+			}
+
+			@media (max-width: 768px) {
+				body {
+					padding: 20px;
+				}
+
+				th,
+				td {
+					padding: 12px;
+					font-size: 13px;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="header">
+			<div id="notification-container"></div>
+
+			<div>
+				<h1>Logged-in Lecturers</h1>
+				<p>All lecturers currently logged in to the system.</p>
+			</div>
+			<button class="refresh">
+				<i class="fas fa-sync-alt" id="refresh-icon"></i> Refresh
+			</button>
+		</div>
+
+		<div class="users-container">
+			<table>
+				<thead>
+					<tr>
+						<th>User</th>
+						<th>Email</th>
+						<th>Role</th>
+						<th>Login Status</th>
+						<th>Account Status</th>
+					</tr>
+				</thead>
+
+				<tbody id="usersTable">
+					<!-- JS will insert lecturers here -->
+				</tbody>
+			</table>
+		</div>
+		<div class="users">
+			<div id="user-info">
+				<div id="validate"></div>
+				<div>
+					<button id="recoverBtn">Recover</button>
+					<button id="closeBtn">close</button>
+				</div>
+			</div>
+		</div>
+		<script type="module" src="../js/manageLecturers.js"></script>
+	</body>
+</html>
+
