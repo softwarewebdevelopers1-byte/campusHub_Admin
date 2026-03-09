@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload PDF Resource</title>
+
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: #f4f6fb;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .container {
+        width: 420px;
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      .header {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .subtitle {
+        font-size: 14px;
+        color: #777;
+        margin-bottom: 25px;
+      }
+
+      .upload-box {
+        border: 2px dashed #bbb;
+        border-radius: 10px;
+        padding: 30px;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+
+      .upload-box:hover {
+        border-color: #4c7dff;
+        background: #f8faff;
+      }
+
+      .icon {
+        font-size: 40px;
+      }
+
+      .file-text {
+        margin-top: 10px;
+        font-weight: 600;
+      }
+
+      .subtext {
+        font-size: 12px;
+        color: #888;
+      }
+
+      .buttons {
+        margin-top: 20px;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+      }
+
+      button {
+        padding: 10px 16px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+
+      .upload {
+        background: #4c7dff;
+        color: white;
+      }
+
+      .preview {
+        background: #555;
+        color: white;
+      }
+
+      .clear {
+        background: #e74c3c;
+        color: white;
+      }
+
+      .message {
+        margin-top: 15px;
+        font-size: 14px;
+      }
+
+      .success {
+        color: green;
+      }
+
+      .error {
+        color: red;
+      }
+
+      .loader {
+        display: none;
+        margin-top: 15px;
+      }
+
+      .loader::after {
+        content: "";
+        width: 30px;
+        height: 30px;
+        border: 4px solid #ddd;
+        border-top: 4px solid #4c7dff;
+        border-radius: 50%;
+        display: inline-block;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      iframe {
+        width: 100%;
+        height: 300px;
+        margin-top: 15px;
+        border: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="header">Upload PDF Resource</div>
+      <div class="subtitle">AI Summarization happens here</div>
+
+      <div class="upload-box" id="uploadBox">
+        <div class="icon">📄</div>
+        <div class="file-text" id="fileText">Click to select a PDF file</div>
+        <div class="subtext">Maximum file size: 5MB</div>
+      </div>
+
+      <input type="file" id="fileInput" accept=".pdf" style="display: none" />
+
+      <div class="buttons" id="buttonGroup" style="display: none">
+        <button class="upload" id="uploadBtn">Upload</button>
+        <button class="preview" id="previewBtn">Preview</button>
+        <button class="clear" id="clearBtn">Clear</button>
+      </div>
+
+      <div class="loader" id="loader"></div>
+
+      <div class="message" id="message"></div>
+
+      <iframe id="previewFrame" style="display: none"></iframe>
+    </div>
+
+    <script>
+      let file = null;
+
+      let uploadBox = document.getElementById("uploadBox");
+      let fileInput = document.getElementById("fileInput");
+      let fileText = document.getElementById("fileText");
+      let buttonGroup = document.getElementById("buttonGroup");
+      let message = document.getElementById("message");
+      let previewFrame = document.getElementById("previewFrame");
+      let loader = document.getElementById("loader");
+
+      uploadBox.onclick = function () {
+        fileInput.click();
+      };
+
+      fileInput.onchange = function () {
+        file = fileInput.files[0];
+
+        if (!file) return;
+
+        if (file.type !== "application/pdf") {
+          message.innerHTML = "✗ Only PDF files allowed";
+          message.className = "message error";
+          file = null;
+          return;
+        }
+
+        if (file.size > 5 * 1024 * 1024) {
+          message.innerHTML = "✗ File too large (max 5MB)";
+          message.className = "message error";
+          file = null;
+          return;
+        }
+
+        fileText.innerHTML = file.name;
+        buttonGroup.style.display = "flex";
+        message.innerHTML = "";
+      };
+
+      document.getElementById("previewBtn").onclick = function () {
+        if (!file) return;
+
+        let url = URL.createObjectURL(file);
+        previewFrame.src = url;
+        previewFrame.style.display = "block";
+      };
+
+      document.getElementById("clearBtn").onclick = function () {
+        file = null;
+        fileInput.value = "";
+        previewFrame.style.display = "none";
+        fileText.innerHTML = "Click to select a PDF file";
+        buttonGroup.style.display = "none";
+        message.innerHTML = "";
+      };
+
+      document.getElementById("uploadBtn").onclick = function () {
+        if (!file) {
+          message.innerHTML = "✗ No file selected";
+          message.className = "message error";
+          return;
+        }
+
+        loader.style.display = "block";
+
+        setTimeout(function () {
+          loader.style.display = "none";
+          message.innerHTML = "✓ File uploaded successfully";
+          message.className = "message success";
+        }, 2000);
+      };
+    </script>
+  </body>
+</html>

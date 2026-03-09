@@ -6,10 +6,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             method: "GET",
             credentials: "include",
         });
-console.log(await res.json());
-
         if (!res.ok) {
-            console.log(await res.json());
+            window.location.href = "./html/login.html";
         }
     } catch (err) {
         console.error("Auth check failed:", err);
