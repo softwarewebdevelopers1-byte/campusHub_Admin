@@ -134,7 +134,6 @@ uploadBtn.onclick = async function () {
         message.innerHTML = "✓ File uploaded successfully";
         message.className = "message success";
 
-        console.log("Server Response:", await res.json());
     } catch (err) {
         loader.style.display = "none";
 
