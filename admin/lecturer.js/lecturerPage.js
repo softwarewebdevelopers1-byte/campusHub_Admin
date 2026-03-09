@@ -1,3 +1,5 @@
+let userName = document.getElementById("userName");
+userName.innerText = JSON.parse(localStorage.getItem("AZX_users_Token")) || "user";
 // handling page reload
 document.addEventListener("DOMContentLoaded", async () => {
 
