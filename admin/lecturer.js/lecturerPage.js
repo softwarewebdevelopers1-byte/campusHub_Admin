@@ -1,4 +1,29 @@
 let userName = document.getElementById("userName");
+let logoutBtn = document.getElementById("logOut");
+let logoutAllBtn = document.getElementById("logOutAll");
+function logOutCredentials() {
+    localStorage.removeItem("AZX_users_Token");
+    window.location.href = "./html/login.html";
+}
+logoutBtn.addEventListener("click", async () => {
+    let res = await fetch("http://localhost:8000/auth/lecturer/logout", {
+        method: "POST",
+        credentials: "include",
+    });
+    if (res.ok) {
+        logOutCredentials();
+    }
+})
+logoutAllBtn.addEventListener("click", async () => {
+    let res = await fetch("http://localhost:8000/auth/lecturer/logout/logoutAll", {
+        method: "POST",
+        credentials: "include",
+    });
+    if (res.ok) {
+        logOutCredentials();
+    }
+})
+
 userName.innerText = JSON.parse(localStorage.getItem("AZX_users_Token")) || "user";
 // handling page reload
 document.addEventListener("DOMContentLoaded", async () => {
