@@ -6,8 +6,14 @@
     <title>Upload PDF Resource</title>
 
     <style>
-      body {
+      * {
+        box-sizing: border-box;
         font-family: Arial, Helvetica, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
         background: #f4f6fb;
         display: flex;
         justify-content: center;
@@ -16,7 +22,7 @@
       }
 
       .container {
-        width: 420px;
+        width: 450px;
         background: white;
         padding: 30px;
         border-radius: 12px;
@@ -33,7 +39,15 @@
       .subtitle {
         font-size: 14px;
         color: #777;
-        margin-bottom: 25px;
+        margin-bottom: 20px;
+      }
+
+      input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
       }
 
       .upload-box {
@@ -83,7 +97,7 @@
       }
 
       .preview {
-        background: #555;
+        background: #444;
         color: white;
       }
 
@@ -127,10 +141,35 @@
         }
       }
 
+      /* Preview overlay */
+
+      #previewFrame {
+        display: none;
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        background: white;
+        z-index: 1000;
+      }
+
+      #closePreview {
+        display: none;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 10px 15px;
+        background: #e74c3c;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        z-index: 1100;
+      }
+
       iframe {
         width: 100%;
-        height: 300px;
-        margin-top: 15px;
+        height: 100%;
         border: none;
       }
     </style>
@@ -140,6 +179,10 @@
     <div class="container">
       <div class="header">Upload PDF Resource</div>
       <div class="subtitle">AI Summarization happens here</div>
+
+      <input type="text" id="courseTitle" placeholder="Course Title" />
+      <input type="text" id="unitName" placeholder="Unit Name" />
+      <input type="text" id="unitCode" placeholder="Unit Code" />
 
       <div class="upload-box" id="uploadBox">
         <div class="icon">📄</div>
@@ -156,83 +199,15 @@
       </div>
 
       <div class="loader" id="loader"></div>
-
       <div class="message" id="message"></div>
-
-      <iframe id="previewFrame" style="display: none"></iframe>
     </div>
 
-    <script>
-      let file = null;
+    <button id="closePreview">Close</button>
 
-      let uploadBox = document.getElementById("uploadBox");
-      let fileInput = document.getElementById("fileInput");
-      let fileText = document.getElementById("fileText");
-      let buttonGroup = document.getElementById("buttonGroup");
-      let message = document.getElementById("message");
-      let previewFrame = document.getElementById("previewFrame");
-      let loader = document.getElementById("loader");
+    <div id="previewFrame">
+      <iframe id="pdfViewer"></iframe>
+    </div>
 
-      uploadBox.onclick = function () {
-        fileInput.click();
-      };
-
-      fileInput.onchange = function () {
-        file = fileInput.files[0];
-
-        if (!file) return;
-
-        if (file.type !== "application/pdf") {
-          message.innerHTML = "✗ Only PDF files allowed";
-          message.className = "message error";
-          file = null;
-          return;
-        }
-
-        if (file.size > 5 * 1024 * 1024) {
-          message.innerHTML = "✗ File too large (max 5MB)";
-          message.className = "message error";
-          file = null;
-          return;
-        }
-
-        fileText.innerHTML = file.name;
-        buttonGroup.style.display = "flex";
-        message.innerHTML = "";
-      };
-
-      document.getElementById("previewBtn").onclick = function () {
-        if (!file) return;
-
-        let url = URL.createObjectURL(file);
-        previewFrame.src = url;
-        previewFrame.style.display = "block";
-      };
-
-      document.getElementById("clearBtn").onclick = function () {
-        file = null;
-        fileInput.value = "";
-        previewFrame.style.display = "none";
-        fileText.innerHTML = "Click to select a PDF file";
-        buttonGroup.style.display = "none";
-        message.innerHTML = "";
-      };
-
-      document.getElementById("uploadBtn").onclick = function () {
-        if (!file) {
-          message.innerHTML = "✗ No file selected";
-          message.className = "message error";
-          return;
-        }
-
-        loader.style.display = "block";
-
-        setTimeout(function () {
-          loader.style.display = "none";
-          message.innerHTML = "✓ File uploaded successfully";
-          message.className = "message success";
-        }, 2000);
-      };
-    </script>
+    <script type="module" src="../lecturer.js/upload.js"></script>
   </body>
 </html>
