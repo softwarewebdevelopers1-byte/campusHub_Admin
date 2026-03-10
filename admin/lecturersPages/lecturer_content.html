@@ -5,15 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lecturer — Dashboard Content</title>
     <style>
-      body{margin:0;padding:24px;font-family:Arial,Helvetica,sans-serif;background:#f4f6f9}
-      h2{margin-top:0}
-      .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px}
-      .card{background:#fff;padding:18px;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,.08)}
-      table{width:100%;margin-top:20px;border-collapse:collapse;background:#fff}
-      th,td{padding:12px;border-bottom:1px solid #e5e7eb;text-align:left}
-      th{background:#f3f4f6}
-      button{padding:8px 12px;border:0;background:#2563eb;color:#fff;border-radius:6px;cursor:pointer}
-      button:hover{background:#1d4ed8}
+      body {
+        margin: 0;
+        padding: 24px;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #f4f6f9;
+      }
+      h2 {
+        margin-top: 0;
+      }
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 18px;
+      }
+      .card {
+        background: #fff;
+        padding: 18px;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      }
+      table {
+        width: 100%;
+        margin-top: 20px;
+        border-collapse: collapse;
+        background: #fff;
+      }
+      th,
+      td {
+        padding: 12px;
+        border-bottom: 1px solid #e5e7eb;
+        text-align: left;
+      }
+      th {
+        background: #f3f4f6;
+      }
+      button {
+        padding: 8px 12px;
+        border: 0;
+        background: #2563eb;
+        color: #fff;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #1d4ed8;
+      }
     </style>
   </head>
   <body>
@@ -25,7 +62,7 @@
       </div>
       <div class="card">
         <h3>Total Students</h3>
-        <p>230</p>
+        <p id="studentsCount">230</p>
       </div>
       <div class="card">
         <h3>Assignments</h3>
@@ -37,7 +74,7 @@
       </div>
     </div>
 
-    <h2 style="margin-top:30px">My Courses</h2>
+    <h2 style="margin-top: 30px">My Courses</h2>
     <table>
       <tr>
         <th>Course</th>
@@ -65,4 +102,13 @@
       </tr>
     </table>
   </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const studentsCount = localStorage.getItem("studentsCount");
+      if (studentsCount) {
+        document.getElementById("studentsCount").textContent =
+          studentsCount || 0;
+      }
+    });
+  </script>
 </html>

@@ -29,6 +29,12 @@ userName.innerText = JSON.parse(localStorage.getItem("AZX_users_Token")) || "use
 document.addEventListener("DOMContentLoaded", async () => {
 
     try {
+        let countRes = await fetch("http://localhost:8000/api/count/log/users", {
+            method: "GET",
+            credentials: "include",
+        });
+        let countData = await countRes.json();
+        localStorage.setItem("studentsCount", countData.count);
         const res = await fetch(`http://localhost:8000/auth/lecturer/check/logged`, {
             method: "GET",
             credentials: "include",
