@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Upload Lecture Video</title>
+
+    <style>
+      body {
+        font-family: Arial;
+        background: #f5f7fb;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        width: 500px;
+        margin: 60px auto;
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+        text-align: center;
+      }
+
+      label {
+        font-weight: bold;
+      }
+
+      input {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      #uploadBox {
+        border: 2px dashed #aaa;
+        padding: 25px;
+        text-align: center;
+        cursor: pointer;
+      }
+
+      button {
+        width: 100%;
+        padding: 12px;
+        background: #2563eb;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: #1d4ed8;
+      }
+
+      #fileText {
+        margin-top: 10px;
+        color: #555;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h2>Upload Lecture Video</h2>
+
+      <label>Course Title</label>
+      <input type="text" id="courseTitle" placeholder="Enter course title" />
+
+      <label>Unit Name</label>
+      <input type="text" id="unitName" placeholder="Enter unit name" />
+
+      <label>Unit Code</label>
+      <input type="text" id="unitCode" placeholder="Enter unit code" />
+
+      <label>Upload Video</label>
+
+      <div id="uploadBox">
+        Click to choose video
+        <input
+          type="file"
+          id="videoFile"
+          accept="video/*"
+          style="display: none"
+        />
+        <div id="fileText">No video selected</div>
+      </div>
+
+      <button id="uploadBtn">Upload Video</button>
+    </div>
+
+    <script>
+      let uploadBox = document.getElementById("uploadBox");
+      let videoFile = document.getElementById("videoFile");
+      let fileText = document.getElementById("fileText");
+
+      let courseTitle = document.getElementById("courseTitle");
+      let unitName = document.getElementById("unitName");
+      let unitCode = document.getElementById("unitCode");
+
+      let uploadBtn = document.getElementById("uploadBtn");
+
+      uploadBox.onclick = function () {
+        videoFile.click();
+      };
+
+      videoFile.onchange = function () {
+        if (videoFile.files.length > 0) {
+          fileText.innerHTML = videoFile.files[0].name;
+        }
+      };
+
+      uploadBtn.onclick = function () {
+        if (
+          courseTitle.value === "" ||
+          unitName.value === "" ||
+          unitCode.value === ""
+        ) {
+          alert("Enter Course Title, Unit Name and Unit Code first");
+          return;
+        }
+
+        if (videoFile.files.length === 0) {
+          alert("Please select a video to upload");
+          return;
+        }
+
+        alert("Video ready for upload!");
+
+        // later you will add fetch here to send to backend
+      };
+    </script>
+  </body>
+</html>
