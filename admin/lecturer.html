@@ -51,11 +51,20 @@
         color: #fff;
         padding-top: 18px;
       }
-      .sidebar a {
+       .sidebar a {
         display: block;
         color: #fff;
         padding: 12px 18px;
         text-decoration: none;
+      }
+      .sidebar button{
+        width: 100%;
+        padding: 12px 18px;
+        border: none;
+        background: transparent;
+        color: #fff;
+        text-align: left;
+        cursor: pointer;
       }
       .sidebar a:hover {
         background: #374151;
@@ -125,10 +134,10 @@
           <i class="fas fa-envelope"></i> Messages
         </a>
 
-        <a href="#" id="logOut"> <i class="fas fa-sign-out-alt"></i> Logout </a>
-        <a href="#" id="logOutAll">
+        <button href="#" id="logOut"> <i class="fas fa-sign-out-alt"></i> Logout </button>
+        <button href="#" id="logOutAll">
           <i class="fas fa-sign-out-alt"></i> LogoutAll
-        </a>
+        </button>
       </nav>
 
       <iframe
